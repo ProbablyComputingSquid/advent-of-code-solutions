@@ -25,15 +25,11 @@ for update in updates: # for each update
             for key, pagerule in ruledict.items(): # for each rule
                 if key != page:
                     continue
-                
                 for item in pagerule: # iterate through each item in the ruleset for the page
-                    
                     try:
                         if update.index(key) <= update.index(item):
-                            # this is correct
                             None
                         else:
-                            #print("incorrect")
                             caught = True
                     except ValueError:
                         None
