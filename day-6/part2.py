@@ -1,4 +1,7 @@
-f = open("day-6/testcase.txt", "r")
+import copy
+
+f = open("day-6/input.txt", "r")
+#f = open("day-6/testcase.txt", "r")
 f = f.read().split("\n")
 
 global guardXPos
@@ -77,14 +80,20 @@ def runGuard(guardYPos, guardXPos, log):
 
 
 
+
 loops = 0
+print(runGuard(guardYPos, guardXPos, copy.deepcopy(log_template)))
+print(runGuard(guardYPos, guardXPos, copy.deepcopy(log_template)))
+
 for i in range(len(log_template)):
-    for j in range(len(log_template[i])):
-        local_log = log_template.copy()
+   for j in range(len(log_template[i])):
+        local_log = copy.deepcopy(log_template)
+        if local_log[i][j]["block"] == "^": 
+            continue
         local_log[i][j]["block"] = "#"
-        if not runGuard(guardYPos, guardXPos, local_log.copy()):
+        if not runGuard(guardYPos, guardXPos, local_log):
             loops += 1
-            
-    
+            print("found an infinite loop!")
+
 print(loops)
 
