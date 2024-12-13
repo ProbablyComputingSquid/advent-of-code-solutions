@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Scanner; // Import the Scanner class to read text files
 import java.util.ArrayList;
 
-public class Part1 {
+public class Part2 {
     public static boolean isSafe(ArrayList<Integer> f) {
         if (f.get(0) > f.get(1)) { // decreasing
             for (int i = 0; i < f.size() - 1; i++) {
@@ -50,8 +50,22 @@ public class Part1 {
         }
         int total = 0;
         for (ArrayList<Integer> f_i : f) {
+    
             if (isSafe(f_i)) {
                 total++;
+                System.out.println("safe!");
+            } else { // try problem dampener
+                boolean safe = false;
+                for (int i = 0; i < f_i.size(); i++) {
+                    ArrayList<Integer> f_i_copy = new ArrayList<>(f_i);
+                    f_i_copy.remove(i);
+                    if (isSafe(f_i_copy)) {
+                        safe = true;
+                        total++;
+                        break;
+                    }
+                }
+                System.out.println(safe ? "safe with problem dampener" : "unsafe!");
             }
         }
         System.out.printf("a total of %d safe", total);
