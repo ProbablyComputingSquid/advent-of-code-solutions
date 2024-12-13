@@ -1,4 +1,5 @@
 import copy
+import os
 
 f = open("day-6/input.txt", "r")
 #f = open("day-6/testcase.txt", "r")
@@ -85,15 +86,20 @@ loops = 0
 print(runGuard(guardYPos, guardXPos, copy.deepcopy(log_template)))
 print(runGuard(guardYPos, guardXPos, copy.deepcopy(log_template)))
 
+ylen = len(log_template)
+xlen = len(log_template[0])
 for i in range(len(log_template)):
    for j in range(len(log_template[i])):
         local_log = copy.deepcopy(log_template)
-        if local_log[i][j]["block"] == "^": 
+        if local_log[i][j]["block"] == "^" or local_log[i][j]["block"] == "#": 
             continue
         local_log[i][j]["block"] = "#"
+        #print("working on row ", i, "/" , ylen , ", column " , j + "/" , xlen , "\n So far, " , loops , "infinite loops")
         if not runGuard(guardYPos, guardXPos, local_log):
             loops += 1
-            print("found an infinite loop!")
+            #os.system('cls' if os.name == 'nt' else 'clear')
+            print("found infinite loop " + str(loops))
+        
 
 print(loops)
 
